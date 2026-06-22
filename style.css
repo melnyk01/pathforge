@@ -20,3 +20,9 @@ li {
     margin-right: 35px;
     list-style: none;
 }
+
+div#result {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
