@@ -1,24 +1,38 @@
 let habits = [
 
 ]
-
 let history = [
     
 ]
-
+let habitList = document.querySelector('#habitList');
 let habitRun = document.querySelector('input#run');
-let habitStudy = document.querySelector('input#study');
-let habitRead = document.querySelector('input#read');
 let dayResult = document.querySelector('#result');
-habits.push(habitRun, habitStudy, habitRead);
+habits.push(habitRun);
+
+//Creating a new habit
+
+let createHabit = document.querySelector('#createHabit')
+createHabit.addEventListener('click', () => {
+    const newHabit = document.createElement('li');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'checkbox'
+    habitList.appendChild(newHabit);
+    newHabit.appendChild(label);
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(prompt('What habit would you like to track?')));
+})
+
+//Clear button
 
 let clearButton = document.querySelector('#clear-records')
 clearButton.addEventListener('click', () => {
-    localStorage.clear();
+    localStorage.removeItem('history');
     alert('History was successfully cleaned!')
 });
 
 // Saving the day
+
 let save = document.querySelector('#save');
 save.addEventListener('click', () => {
     let today = {
