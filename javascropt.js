@@ -74,6 +74,7 @@ save.addEventListener('click', () => {
 })
 
 // Display old habits
+
 if (habits.length > 0) {
     for (habit of habits) {
         const newHabit = document.createElement('li');
@@ -89,6 +90,7 @@ if (habits.length > 0) {
 }
 
 // Prints records; Reversed to get a new data first
+
 
 if (history.length > 0) {
     for (record of history.reverse()) { 
