@@ -1,12 +1,15 @@
 let habits = JSON.parse(localStorage.getItem('habits')) || [];
 let history = JSON.parse(localStorage.getItem('history')) || [];
+let goals = JSON.parse(localStorage.getItem('goals')) || [];
 let habitList = document.querySelector('#habitList');
 let dayResult = document.querySelector('#result');
 let sessionHabits = [];
 
-//Clear records button
 
-let clearRecordsButton = document.querySelector('#clear-records')
+// Clearing buttons
+
+//Clear records button
+let clearRecordsButton = document.querySelector('#clearRecords')
 clearRecordsButton.addEventListener('click', () => {
     localStorage.removeItem('history');
     while (dayResult.lastChild) {
@@ -16,20 +19,39 @@ clearRecordsButton.addEventListener('click', () => {
 });
 
 // Clear habits button
-
-let clearHabitsButton = document.querySelector('#clear-habits')
+let clearHabitsButton = document.querySelector('#clearHabits')
 clearHabitsButton.addEventListener('click', () => {
     localStorage.removeItem('habits');
     while (habitList.lastChild && (habitList.lastChild.id != 'createHabit')) {
         habitList.removeChild(habitList.lastChild);
     }
-    alert('Habits were successfully cleared!')
+    alert('Habits were successfully cleared!');
 });
 
+// Remove last goal
+const RemoveLastGoalButton = document.querySelector('#removeGoal');
+RemoveLastGoalButton.addEventListener('click', () => {
+    const lastGoal = goals.pop()
+    goalList.removeChild(goalList.lastChild);
+    localStorage.setItem('goals', JSON.stringify(goals));
+    alert(`${lastGoal} was successfully removed!`);
+});
 
-//Creating a new habit
+// Creating new goal
+const goalList = document.querySelector('#goalList');
+const createGoal = document.querySelector('#createGoal');
+createGoal.addEventListener('click', () => {
+    const newGoalId = prompt('What would you like to accomplish this year?');
+    const newGoal = document.createElement('li');
+    goalList.appendChild(newGoal);
+    newGoal.appendChild(document.createTextNode(newGoalId));
+    goals.push(newGoalId);
+    localStorage.setItem('goals', JSON.stringify(goals));
+});
 
-let createHabit = document.querySelector('#createHabit')
+//Creating new habit
+
+let createHabit = document.querySelector('#createHabit');
 createHabit.addEventListener('click', () => {
     const newHabitId = prompt('What habit would you like to track?');
     const newHabit = document.createElement('li');
@@ -73,7 +95,7 @@ save.addEventListener('click', () => {
     alert('Day has been successfully saved!');
 })
 
-// Display old habits
+// Display habits
 
 if (habits.length > 0) {
     for (habit of habits) {
@@ -89,8 +111,17 @@ if (habits.length > 0) {
     }    
 }
 
-// Prints records; Reversed to get a new data first
+// Display goals
 
+if (goals.length > 0) {
+    for (goal of goals) {
+        const newGoal = document.createElement('li');
+        goalList.appendChild(newGoal);
+        newGoal.appendChild(document.createTextNode(goal));    
+    }
+}
+
+// Prints records; Reversed to get a new data first
 
 if (history.length > 0) {
     for (record of history.reverse()) { 
